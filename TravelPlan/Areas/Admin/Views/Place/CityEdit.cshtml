@@ -1,0 +1,162 @@
+﻿@using TravelPlan.Common
+@model TravelPlan.Models.Dto.Area.City.CityEditDto
+
+@{
+    ViewData["Title"] = "ویرایش کردن شهر";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                    {
+                "warning","primary","info","success","danger","dark"
+                    };
+    var countries = ViewBag.ListCountrySelectList as List<SelectListItem>;
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">ویرایش کردن شهر</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="/Admin/City/Edit" method="post" enctype="multipart/form-data">
+                    <br>
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام شهر</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="CountryId" class="control-label pb-1" style="font-size:16px">کشور</label>
+                                <select asp-for="CountryId" asp-items="@countries" class="form-control form-select"></select>
+                                <span asp-for="CountryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="form-group pb-4">
+                                <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات(Html Editor)</label>
+                                <textarea asp-for="Description" class="form-control" id="summernote"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label asp-for="IndexImageAddress" class="control-label pb-1 d-block" style="font-size:16px"> عکس موجود</label>
+                                    @if (Model.IndexImageAddress != null)
+                                    {
+                                        <div class="symbol symbol-50px">
+                                            <img src=~/@Model.IndexImageAddress alt="@Model.ImageAlt" title="@Model.ImageTitle" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        string fName = Model.Name.Substring(0, 1);
+                                        var sum = CalculateSumOfLetters.CalculateAsciiSum(Model.Name);
+                                        var Color = Convert.ToInt32(Math.Ceiling((double)sum % 6));
+                                        <div class="symbol symbol-50px">
+                                            <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+                                        </div>
+
+                                    }
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group pb-4">
+                                        <label asp-for="IndexImageFile" class="control-label pb-1" style="font-size:16px">آپلود تصویر جدید</label>
+                                        <input type="file" name="IndexImageFile" asp-for="IndexImageFile" class="form-control" accept=".png,.jpg,.jpeg,.gif" />
+                                        <p class="secondary" style="margin-bottom: 0px;">حداکثر سایز آپلود عکس 5 مگابایت</p>
+                                        <span asp-validation-for="IndexImageFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="Slug" class="control-label pb-1" style="font-size:16px">لینک(نامک)</label>
+                                <input asp-for="Slug" class="form-control" />
+                                <span asp-validation-for="Slug" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="ImageTitle" class="control-label pb-1" style="font-size:16px">Title عکس</label>
+                                <input asp-for="ImageTitle" class="form-control" />
+                                <span asp-validation-for="ImageTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="ImageAlt" class="control-label pb-1" style="font-size:16px">Alt عکس</label>
+                                <input asp-for="ImageAlt" class="form-control" />
+                                <span asp-validation-for="ImageAlt" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5 d-flex justify-content-center">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <label asp-for="IsSelected" class="form-check-label pb-1 pl-1" style="font-size:16px;padding-left: 15px;">
+                                    منتخب برای نمایش
+                                </label>
+                                <input asp-for="IsSelected" class="form-check-input h-30px w-50px" type="checkbox" id="IsActive" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5 d-flex justify-content-center">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button name="Publish" value="Publish" class="btn btn-success mx-1" id="SubmitBtn">ذخیره شهر</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/City/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <script src="~/lib/summernote/summernote-lite.js"></script>
+        <script src="~/lib/summernote/lang/summernote-fa-IR.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#summernote').summernote({
+                    placeholder: 'اینجا بنویس',
+                    tabsize: 2,
+                    height: 100,
+                    lang: 'fa-IR'
+                });
+            });
+        </script>
+    }
+}
+@section Css {
+    @{
+        <link href="~/lib/summernote/summernote-lite.css" rel="stylesheet">
+    }
+}

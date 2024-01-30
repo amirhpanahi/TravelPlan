@@ -1,0 +1,48 @@
+﻿@model TravelPlan.Models.Dto.Area.Users.AddUserRoleDto
+
+@{
+    ViewData["Title"] = "اضافه کردن";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">اضافه کردن نقش</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="/admin/users/AddUserRole" method="post">
+                    <p>
+                        شما قصد افزودن نقش جدید به کاربر
+                        <text class="text-danger">@Model.FullName</text>
+                        <span>با ایمیل</span>
+                        <text class="text-danger">@Model.Email</text>
+                        <span>را دارید</span>
+                    </p>
+                    <br>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" class="form-control" />
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Role" class="control-label">نقش</label>
+                        <select asp-for="Role" asp-items="Model.Roles" class="form-control"></select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="ثبت نقش" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/users/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>

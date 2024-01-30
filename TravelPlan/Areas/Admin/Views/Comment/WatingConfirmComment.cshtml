@@ -1,0 +1,139 @@
+﻿@using TravelPlan.Models.Dto.Area.Users;
+@using TravelPlan.Models.Entities;
+@model List<TravelPlan.Models.Dto.Main.Comment.CommentListDto>
+@{
+    ViewData["Title"] = "کامنت های در انتظار تایید";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var users = ViewBag.Users as List<UserListDto>;
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+                <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="جستجو تگ">
+            </div>
+        </h3>
+        <div class="card-toolbar">
+            لیست نظرات در انتظار تایید
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام آیتم
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام نویسنده
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            متن کامنت
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            تاریخ ثبت فارسی
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter1 = 1;
+                        int counter2 = 2;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        string NameWriter = users.Where(x => x.Id == item.UserId).Select(x => x.FullName).FirstOrDefault();
+                        <tr>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.ItemId)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @NameWriter
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.CommentText)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.RegisterDatePersian)
+                            </td>
+                            <td width="140px">
+                                <div class="col-sm-6">
+                                    <a href="/Admin/Comment/Details/@item.Id" class="badge badge-info mb-1 py-4" style="width:67px;height:20px;justify-content: center;">جزییات</a>
+                                 <div class="form-group d-flex justify-content-center">
+                                        <a  class="badge badge-success  mb-1 py-4" style="width:67px;height:20px;justify-content: center;" data-bs-toggle="modal" data-bs-target="#kt_modal_@counter1">تایید نطر</a>
+                                        <!--begin::modal-->
+                                    <div class="modal fade" tabindex="-1" id="kt_modal_@counter1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">تایید نطر</h3>
+
+                                                        <!--begin::Close-->
+                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                </div>
+
+                                                    <div class="modal-body">
+                                                        <p>میخواهید این نظر را تایید کنید؟</p>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                                        <a href="/Admin/Comment/ConfirmByAdmin/@item.Id" class="btn btn-success">تایید نطر</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::modal-->
+                                </div>
+                                <div class="form-group d-flex justify-content-center">
+                                        <a class="badge badge-danger py-4" style="width:67px;height:20px;justify-content: center;" data-bs-toggle="modal" data-bs-target="#kt_modal_@counter2">رد نطر</a>
+                                        <!--begin::modal-->
+                                    <div class="modal fade" tabindex="-1" id="kt_modal_@counter2">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">رد نظر</h3>
+
+                                                        <!--begin::Close-->
+                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                </div>
+
+                                                    <div class="modal-body">
+                                                        <p>میخواهید این نظر را رد کنید؟</p>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                                        <a href="/Admin/Comment/RejectedByAdmin/@item.Id" class="btn btn-danger">رد خبر</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::modal-->
+                                </div>
+                                </div>
+                            </td>
+                        </tr>
+                        counter1 += 2;
+                        counter2 += 2;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+    </div>
+</div>

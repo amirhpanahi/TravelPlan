@@ -1,0 +1,211 @@
+﻿@model TravelPlan.Models.Dto.Main.ViewComponent.ShowItemDto
+<div class="container mt-5 mb-md-2 mb-lg-4 py-5">
+    <h1 class="h4 pb-3 font-vazir">@Model.Name</h1>
+    <div class="div-img-center">
+    <img class="rounded-3" src="~/@Model.IndexImage" alt="@Model.ImageAlt" title="@Model.ImageTitle">
+    </div>
+    <div class="row mt-4 pt-3">
+        <!-- Sidebar (offcanvas)-->
+        @await Component.InvokeAsync("GifsInPage")
+        <!-- Post content-->
+        <div class="col-lg-9 blog-details">
+            <!-- Post meta-->
+            <div class="d-flex flex-wrap border-bottom pb-3 mb-4">
+                <div class="d-flex align-items-center border-end pe-3 me-3 mb-2">
+                    <i class="fi-calendar-alt opacity-70 me-2"></i><span>@Model.PublishDatePersianDay @Model.PublishDatePersianMonth @Model.PublishDatePersianYear - @Model.PublishDatePersianTime</span>
+                </div>
+                <div class="d-flex align-items-center border-end pe-3 me-3 mb-2">
+                    <span>@Model.CountOfComment</span>
+                    <i class="fi-chat-circle opacity-70 pe-3 me-3 mb-2 mx-2"></i>
+                    <span>  نظر</span>
+                </div>
+                @*                 <a class="nav-link-muted d-flex align-items-center mb-2" href="#">
+                <span>@Model.CountOfLike</span>
+                <i class="fa fa-heart text-danger mx-2"></i>
+                <i class="fa fa-heart-o text-danger mx-2"></i>
+                <span>لایک</span>
+                </a> *@
+
+
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="d-flex align-items-center">
+                        <span id="NumberOfLike">@Model.CountOfLike</span>
+                        <span class="likeSpan" id="kt_docs_sweetalert_state_warning_for_Like" style="cursor:pointer;"><i class="fa fa-heart-o text-danger mx-2"></i></span>
+                    </div>
+                }
+                else
+                {
+                    if (Model.LikeStatus == "" || Model.LikeStatus == "None")
+                    {
+                        <div class="d-flex align-items-center">
+                            <span id="NumberOfLike">@Model.CountOfLike</span>
+                            <span class="likeSpan" onclick="LikeNewsOwnSelf()" style="cursor:pointer;"><i class="fa fa-heart-o text-danger mx-2" id="LikeHeart"></i></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-items-center">
+                            <span id="NumberOfLike">@Model.CountOfLike</span>
+                            <span class="likeSpan" onclick="NoneOwnSelf()" style="cursor:pointer;"><i class="fa fa-heart text-danger mx-2" id="LikeHeart"></i></span>
+                        </div>
+                    }
+                }
+
+
+
+            </div>
+            @Html.Raw(Model.Description)
+            <blockquote class="blockquote pb-2 font-vazir">
+                <p>
+                    @Html.Raw(Model.AddressAndDetails)
+                </p>
+                <footer class="fs-base">— @Model.WriterName</footer>
+            </blockquote>
+            @Model.Summary
+            <!-- Tags + Sharing-->
+            <div class="pt-4 pb-4 mb-4 border-bottom">
+                <div class="d-md-flex align-items-center justify-content-between border-top pt-4">
+                    <div class="d-flex align-items-center me-3 mb-3 mb-md-0">
+                        <div class="d-none d-sm-block fw-bold text-nowrap mb-2 me-2 pe-1">برچسب ها:</div>
+                        <div class="d-flex flex-wrap">
+                            @if (Model.Tags != null)
+                            {
+                                var tags = Model.Tags.Split(",");
+                                @foreach (var item in tags)
+                                {
+                                    if (item != "")
+                                    {
+                                        <a class="btn btn-xs btn-outline-secondary rounded-pill fs-sm fw-normal me-2 mb-2" href="#">@item</a>
+                                    }
+                                }
+                            }
+
+
+                            @* <a class="btn btn-xs btn-outline-secondary rounded-pill fs-sm fw-normal mb-2"href="#">مسافرت</a> *@
+                        </div>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-outline-primary rounded-pill ms-4" href="#modal-review" data-bs-toggle="modal"><i class="fi-edit mt-n1 me-1 align-middle"></i>ثبت نظر</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-outline-primary rounded-pill ms-4" id="kt_docs_sweetalert_state_warning_for_CM">
+                                <i class="fi-edit mt-n1 me-1 align-middle"></i>ثبت نظر
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @if (Model.Comments.Count == 0)
+            {
+                <p>دیدگاهی موجود نیست</p>
+            }
+            else
+            {
+                foreach (var item in Model.Comments)
+                {
+                    <!-- Review-->
+                    <div class="mb-4 pb-4 border-bottom">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="d-flex align-items-center ps-2">
+                                <div class="ps-2">
+                                    <h6 class="fs-base mb-0">@item.WriterName</h6>
+                                </div>
+                            </div><span class="text-muted fs-sm">@item.RegisterDatePersian</span>
+                        </div>
+                        <p>@item.CommentText</p>
+                    </div>
+                }
+            }
+
+
+        </div>
+    </div>
+    <!-- Recent posts-->
+    @* <div class="pt-5 mt-md-4 mb-lg-2">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 pb-2">
+    <h2 class="h4 mb-sm-0 font-vazir">سفر های مشابه</h2><a class="btn btn-link fw-normal ms-sm-3 p-0" href="city-guide-blog.html">
+    مشاهده همه<i class="fi-arrow-long-left ms-2"></i>
+    </a>
+    </div>
+    <!-- Carousel-->
+    <div class="tns-carousel-wrapper tns-nav-outside">
+    <div class="tns-carousel-inner d-block"
+    data-carousel-options="{&quot;controls&quot;: false, &quot;gutter&quot;: 24, &quot;autoHeight&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1,&quot;nav&quot;:true},&quot;500&quot;:{&quot;items&quot;:2},&quot;850&quot;:{&quot;items&quot;:3},&quot;1200&quot;:{&quot;items&quot;:3}}}">
+    <!-- Item-->
+    <article>
+    <a class="d-block mb-3" href="city-guide-blog-single.html">
+    <img class="rounded-3"
+    src="img/city-guide/blog/12.jpg" alt="Post image">
+    </a><a class="fs-sm text-uppercase text-decoration-none" href="#">گردشگری</a>
+    <h3 class="fs-lg pt-1">
+    <a class="nav-link" href="city-guide-blog-single.html">
+    سفر هوایی در زمان
+    کووید-19
+    </a>
+    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+    </a>
+    </article>
+    <!-- Item-->
+    <article>
+    <a class="d-block mb-3" href="city-guide-blog-single.html">
+    <img class="rounded-3"
+    src="img/city-guide/blog/13.jpg" alt="Post image">
+    </a><a class="fs-sm text-uppercase text-decoration-none" href="#">تفریحی و سرگرمی</a>
+    <h3 class="fs-lg pt-1">
+    <a class="nav-link" href="city-guide-blog-single.html">
+    10 موزه دیدنی بر شهر
+    برلین
+    </a>
+    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+    </a>
+    </article>
+    <!-- Item-->
+    <article>
+    <a class="d-block mb-3" href="city-guide-blog-single.html">
+    <img class="rounded-3"
+    src="img/city-guide/blog/14.jpg" alt="Post image">
+    </a><a class="fs-sm text-uppercase text-decoration-none" href="#">گردشگری</a>
+    <h3 class="fs-lg pt-1">
+    <a class="nav-link" href="city-guide-blog-single.html">
+    7 نکته برای مسافران انفرادی
+    در آفریقا
+    </a>
+    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+    </a>
+    </article>
+    </div>
+    </div>
+    </div> *@
+</div>
+
+    <input type="hidden" value="@ViewBag.userIdVisitor" id="IdCommentWriter" />
+    <!-- Review modal-->
+    <div class="modal fade" id="modal-review" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block position-relative border-0 pb-0 px-sm-5 px-4">
+                    <h4 class="modal-title mt-4 text-center">ثبت نظر</h4>
+                    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-sm-5 px-4">
+                    <div class="mb-4">
+                        <label class="form-label" for="review-text">نظر <span class='text-danger'>*</span></label>
+                        <textarea class="form-control" id="textInput" oninput="updateCharacterCount()" rows="5" placeholder="پیام شما..." required></textarea>
+                        <label id="charCountLabel">0 / 1000</label>
+                        <div class="invalid-feedback">لطفا نظر خود را ثبت کنید.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg d-block w-100 rounded-pill mb-4" onclick="SubmitComment()">ثبت دیدگاه</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page header-->
+

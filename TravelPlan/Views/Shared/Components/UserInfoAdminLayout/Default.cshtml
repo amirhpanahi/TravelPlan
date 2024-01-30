@@ -1,0 +1,61 @@
+﻿@using TravelPlan.Common
+@model TravelPlan.Models.Dto.Area.Users.UserListDto
+@{
+    var Colors = new string[]
+                {
+            "warning","primary","info","success","danger","dark"
+                };
+}
+<div class="d-flex justify-content-center align-items-center">
+	<span>سلام <b>@Model.FullName</b></span>
+	<span>
+
+	</span>
+</div>
+
+<!--begin::کاربر menu-->
+<div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
+	<!--begin::Menu wrapper-->
+    @if (Model == null)
+    {
+        <img b-r6so7zx28k="" src="assets/media/avatars/300-1.jpg" alt="user">
+    }
+    else
+    {
+        @if (Model.PicAddress != null)
+        {
+            <div class="symbol symbol-50px">
+                <img src=~/@Model.PicAddress alt="@Model.PicAlt" title="@Model.PicTitle" />
+            </div>
+        }
+        else
+        {
+            string fName = Model.FullName.Substring(0, 1);
+            var Color = (CalculateSumOfLetters.CalculateSum(Model.PhoneNumber) % 6);
+            <div class="symbol symbol-50px">
+                <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+            </div>
+
+        }
+    }
+	<!--begin::کاربر account menu-->
+	<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-200px" data-kt-menu="true">
+		<!--end::Menu item-->
+		<!--begin::Menu item-->
+		<div class="menu-item px-5">
+			<a href="../../demo1/dist/account/overview.html" class="menu-link px-5">پروفایل من</a>
+		</div>
+	</div>
+	<!--end::کاربر account menu-->
+	<!--end::Menu wrapper-->
+</div>
+<!--end::کاربر menu-->
+<!--begin::Header menu toggle-->
+<div class="app-navbar-item d-lg-none ms-2 me-n2" title="مشاهده header menu">
+	<div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px" id="kt_app_header_menu_toggle">
+		<i class="ki-duotone ki-element-4 fs-1">
+			<span class="path1"></span>
+			<span class="path2"></span>
+		</i>
+	</div>
+</div>

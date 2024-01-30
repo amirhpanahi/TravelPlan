@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="utf-8">
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" color="#5bbad5" href="safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#766df4">
+    <meta name="theme-color" content="#ffffff">
+    @await Component.InvokeAsync("GeneralSettings",new{SecendPart=@ViewData["Title"],NewsId=@ViewData["NewsId"]})
+    <!-- Page loading styles-->
+    <style>
+        .page-loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all .4s .2s ease-in-out;
+            transition: all .4s .2s ease-in-out;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+        }
+
+            .page-loading.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+        .page-loading-inner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            opacity: 0;
+        }
+
+        .page-loading.active > .page-loading-inner {
+            opacity: 1;
+        }
+
+        .page-loading-inner > span {
+            display: block;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #666276;
+            ;
+        }
+
+        .page-spinner {
+            display: inline-block;
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: .75rem;
+            vertical-align: text-bottom;
+            border: .15em solid #bbb7c5;
+            border-right-color: transparent;
+            border-radius: 50%;
+            -webkit-animation: spinner .75s linear infinite;
+            animation: spinner .75s linear infinite;
+        }
+
+        @@-webkit-keyframes spinner {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spinner {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <!-- Page loading scripts-->
+    <script>
+        (function () {
+            window.onload = function () {
+                var preloader = document.querySelector('.page-loading');
+                preloader.classList.remove('active');
+                setTimeout(function () {
+                    preloader.remove();
+                }, 2000);
+            };
+        })();
+
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="~/Frontend/vendor/simplebar/dist/simplebar.min.css" />
+    <link rel="stylesheet" media="screen" href="~/Frontend/vendor/tiny-slider/dist/tiny-slider.css" />
+    <link rel="stylesheet" media="screen" href="~/Frontend/vendor/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" media="screen" href="~/Frontend/vendor/persain-date/persian-datepicker.min.css" />   
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="~/Frontend/css/theme.min.css">
+    @await RenderSectionAsync("Css", required: false)
+
+</head>
+
+<body dir="rtl">
+    <!-- Page loading spinner-->
+    <div class="page-loading active">
+        <div class="page-loading-inner">
+            <div class="page-spinner"></div><span>لطفا منتظر باشید</span>
+        </div>
+    </div>
+    <main class="page-wrapper">
+        <!-- Navbar-->
+        <header class="navbar navbar-expand-lg navbar-light fixed-top" data-scroll-header>
+            <div class="container">
+                <a class="navbar-brand ms-3 ms-xl-4 logo" href="city-guide-home-v1.html">
+                    <img class="d-block" src="~/Frontend/img/logo/logo-dark.svg" width="116" alt="Finder">
+                </a>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                    </span>
+                </button>
+                <a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="/Account/Login">
+                    <i class="fi-user me-2"></i>ورود به حساب کاربری
+                </a>
+                <a class="btn btn-sm  rounded-pill btn-primary d-none d-lg-block order-lg-3" href="/Account/Register">
+                    <i class="fi-user me-2"></i>ثبت نام
+                </a>
+                <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+                    <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
+                        <!-- Menu items-->
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link" href="/">
+                                خانه
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                اقامتگاه
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="city-guide-catalog.html">لیست هتل با فیلتر</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single.html">جزئیات هتل با گالری</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-info.html">جزئیات هتل با اطلاعات</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-reviews.html">جزئیات هتل با نظرات</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                رستوران
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="city-guide-catalog.html">لیست رستوران با فیلتر</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single.html">جزئیات رستوران با گالری</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-info.html">جزئیات رستوران با اطلاعات</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-reviews.html">جزئیات رستوران با نظرات</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                سفر ها
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="city-guide-catalog.html">سفر های شهر تهران</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single.html">سفر های شهر اصفهان</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-info.html">سفر های شهر شیراز</a></li>
+                                <li><a class="dropdown-item" href="city-guide-single-reviews.html">سفر های شهر تبریز</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                حساب کاربری
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/Profile/Index">پروفایل کاربر</a></li>
+                                <li><a class="dropdown-item" href="/admin/index">پنل ادمین</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="/Profile/Trip/Create" role="button">افزودن سفر</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="#signin-modal" data-bs-toggle="modal">
+                                <i class="fi-user me-2"></i>ورود
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        @RenderBody()
+    </main>
+    <!-- Footer-->
+    <footer class="footer pt-lg-5 pt-4 bg-dark text-light">
+        <div class="container mb-4 py-4 pb-lg-5">
+            <div class="row gy-4">
+                <div class="col-lg-3 col-md-6 col-sm-4">
+                    <div class="mb-4 pb-sm-3">
+                        <a class="d-inline-block" href="city-guide-home-v1.html">
+                            <img src="img/logo/logo-light.svg" width="116" alt="Logo">
+                        </a>
+                    </div>
+                    <ul class="nav nav-light flex-column">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-0 fw-normal text-light text-nowrap"
+                               href="mailto:example@gmail.com">
+                                <i class="fi-mail mt-n1 me-1 align-middle text-primary"></i>Panahia40@gmail.com
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-0 fw-normal text-light text-nowrap" href="tel:4065550120">
+                                <i class="fi-device-mobile mt-n1 me-1 align-middle text-primary"></i>09012556605 - 09217392540
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Links-->
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <h3 class="fs-base text-light">لینک های سریع</h3>
+                    <ul class="list-unstyled fs-sm">
+                        <li><a class="nav-link-light" href="#">شهرهای برتر</a></li>
+                        <li><a class="nav-link-light" href="#">اقامتگاه</a></li>
+                        <li><a class="nav-link-light" href="#">رستوران و کافی شاپ</a></li>
+                        <li><a class="nav-link-light" href="#">رویدادها</a></li>
+                    </ul>
+                </div>
+                <!-- Links-->
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <h3 class="fs-base text-light">حساب کاربری</h3>
+                    <ul class="list-unstyled fs-sm">
+                        <li><a class="nav-link-light" href="city-guide-account-info.html">پروفایل من</a></li>
+                        <li><a class="nav-link-light" href="city-guide-account-favorites.html">مورد علاقه ها</a></li>
+                        <li><a class="nav-link-light" href="#signin-modal">ورود</a></li>
+                        <li><a class="nav-link-light" href="#">ثبت نام</a></li>
+                    </ul>
+                </div>
+                <!-- Subscription form-->
+                <div class="col-lg-4 offset-lg-1">
+                    <h3 class="h5 font-vazir text-light">مشترک شدن در خبرنامه ما</h3>
+                    <p class="fs-sm mb-4 opacity-60">کسب و کارهای خوب را از دست ندهید!</p>
+                    <form class="form-group form-group-light rounded-pill" style="max-width: 500px;">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text text-muted">
+                                <i class="fi-mail"></i>
+                            </span>
+                            <input class="form-control" type="email" placeholder="ایمیل شما">
+                        </div>
+                        <button class="btn btn-primary btn-sm rounded-pill" type="button">ارسال</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="py-4 border-top border-light">
+            <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between py-2">
+                <!-- Copyright-->
+                <p class="fs-sm text-center text-sm-start mb-4">
+                    <span class="text-light opacity-50">
+                        © تمام حقوق این سایت محفوظ است . ارائه شده توسط امیرحسین پناهی .
+                    </span><a class="nav-link-light fw-bold"
+                              href="https://createx.studio/" target="_blank" rel="noopener"></a>
+                </p>
+                <div class="d-flex flex-lg-row flex-column align-items-center order-lg-2 order-1 ms-lg-4 mb-lg-0 mb-4">
+                    <!-- Links-->
+                    <div class="d-flex flex-wrap fs-sm mb-lg-0 mb-4 pe-lg-4">
+                        <a class="nav-link-light px-2 mx-1" href="#">
+                            درباره
+                            ما
+                        </a>
+                        <a class="nav-link-light px-2 mx-1" href="#">مقالات</a>
+                        <a class="nav-link-light px-2 mx-1" href="#">پشتیبانی</a>
+                        <a class="nav-link-light px-2 mx-1" href="#">تماس با ما</a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <!-- Socials-->
+                        <div class="ms-4 pe-lg-2 text-nowrap">
+                            <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle ms-2" href="#">
+                                <i class="fi-facebook">
+                                </i>
+                            </a>
+                            <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle ms-2" href="#">
+                                <i class="fi-twitter"></i>
+                            </a>
+                            <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle ms-2" href="#">
+                                <i class="fi-telegram"></i>
+                            </a>
+                            <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle ms-2" href="#">
+                                <i class="fi-messenger"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to top button-->
+    <a class="btn-scroll-top" href="#top" data-scroll>
+        <span class="btn-scroll-top-tooltip text-muted fs-sm ms-2">بالا</span><i class="btn-scroll-top-icon fi-chevron-up">
+        </i>
+    </a>
+    <!-- Vendor scrits: js libraries and plugins-->
+    <script src="~/Frontend/vendor/jquery-3.6.0.js"></script>
+    <script src="~/Frontend/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Frontend/vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="~/Frontend/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="~/Frontend/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="~/Frontend/vendor/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="~/Frontend/vendor/persain-date/persian-date.js"></script>
+    <script src="~/Frontend/vendor/persain-date/persian-datepicker.min.js"></script>
+    <!-- Main theme script-->
+    <script src="~/Frontend/js/theme.min.js"></script>
+    <script>
+        $('#date-event').persianDatepicker({
+            initialValue: false,
+            format: 'YYYY/MM/DD'
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

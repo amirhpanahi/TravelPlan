@@ -1,0 +1,176 @@
+﻿@using TravelPlan.Models.Dto.Main.ViewComponent;
+@model ShowItemDto
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Component.InvokeAsync("ShowItem",new {SenderName="Hotel",Slug = @Model.Slug ,UserIdVisitor=ViewBag.userIdVisitor})
+
+@section Css{
+    <link rel="stylesheet" media="screen" href="~/css/Main/Home/ProductPage.css">
+    <link rel="stylesheet" href="~/css/Main/Hotel/item.css" />
+
+}
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function LikeNewsOwnSelf() {
+            // console.log("like")
+            // $.post("Like/News", { "NewsId": 2 }, function (data) {
+            //     alert("success");
+            //     alert(data);
+            // });
+            var CountOfLike = document.getElementById('NumberOfLike').innerHTML
+            $.ajax({
+                type: "POST",
+                url: "/Api/Like",
+                data: { "ItemId": @Model.Id, "CountOfLike": CountOfLike, "TblName": "Hotel" },
+                success: function (response) {
+                    var separatedValues = response.split(',');
+                    const likebtn = document.getElementById('LikeHeart');
+                    likebtn.classList = separatedValues[0];
+                    const NumberOfLikeSPN = document.getElementById('NumberOfLike');
+                    NumberOfLikeSPN.innerHTML = separatedValues[1];
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        function NoneOwnSelf() {
+            const NewsId = @Model.Id;
+            // console.log("like")
+            // $.post("Like/News", { "NewsId": 2 }, function (data) {
+            //     alert("success");
+            //     alert(data);
+            // });
+            var CountOfLike = document.getElementById('NumberOfLike').innerHTML
+            $.ajax({
+                type: "POST",
+                url: "/Api/Like",
+                data: { "ItemId": @Model.Id, "CountOfLike": CountOfLike, "TblName": "Hotel" },
+                success: function (response) {
+                    var separatedValues = response.split(',');
+                    const likebtn = document.getElementById('LikeHeart');
+                    likebtn.classList = separatedValues[0];
+                    const NumberOfLikeSPN = document.getElementById('NumberOfLike');
+                    NumberOfLikeSPN.innerHTML = separatedValues[1];
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function SubmitComment() {
+            const ItemId = @Model.Id;
+
+            const IdCommentWriter = document.getElementById('IdCommentWriter');
+            const IdCommentWriterValue = IdCommentWriter.value;
+
+            const textInput = document.getElementById('textInput');
+            const textInputValue = textInput.value;
+            console.log(textInputValue)
+
+            $.ajax({
+                type: "POST",
+                url: "/api/submitComment",
+                data: { "IdCommentWriter": IdCommentWriterValue, "TextComment": textInputValue, "ItemId": ItemId, "TblName": "Hotel" },
+                success: function (response) {
+                    if (response != "error") {
+                        Swal.fire({
+                            title: response,
+                            icon: 'success',
+                            confirmButtonText: "تایید",
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'دیدگاه شما ثبت نشد،فرمت وارد شده صحیح نیست',
+                            icon: 'warning',
+                            confirmButtonText: "تایید",
+                        })
+                    }
+                    textInput.value = "";
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                eror: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function updateCharacterCount() {
+            const inputElement = document.getElementById('textInput');
+            const charCountLabel = document.getElementById('charCountLabel');
+
+            const enteredText = inputElement.value;
+            const charCount = enteredText.length;
+
+            charCountLabel.textContent = charCount + '/1000';
+
+            // اگر تعداد کاراکترها بیش از 1000 باشد، محدودیت را اعمال کنید
+            if (charCount > 1000) {
+                inputElement.value = enteredText.substring(0, 1000);
+                charCountLabel.textContent = '1000/1000';
+            }
+        }
+
+        const buttonPreventlike = document.getElementById('kt_docs_sweetalert_state_warning_for_Like');
+        const buttonPreventCM = document.getElementById('kt_docs_sweetalert_state_warning_for_CM');
+        if (buttonPreventlike != null || buttonPreventCM!= null) {
+            buttonPreventlike.addEventListener('click', e => {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'ابتدا وارد شوید',
+                    width: 380,
+                    padding: '3em',
+                    color: '#FD5631',
+                    confirmButtonText: "تایید",
+                    confirmButtonColor: "#FD5631",
+                    background: '#fff url(/assets/media/Home/trees.png)',
+                    backdrop: `
+
+                                    url("/images/nyan-cat.gif")
+                                    left top
+                                    no-repeat`
+                })
+            });
+
+            buttonPreventCM.addEventListener('click', e => {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'ابتدا وارد شوید',
+                    width: 380,
+                    padding: '3em',
+                    color: '#FD5631',
+                    confirmButtonText: "تایید",
+                    confirmButtonColor: "#FD5631",
+                    background: '#fff url(/assets/media/Home/trees.png)',
+                    backdrop: `
+
+                                            url("/images/nyan-cat.gif")
+                                            left top
+                                            no-repeat`
+                })
+            });
+        }
+    </script>
+}

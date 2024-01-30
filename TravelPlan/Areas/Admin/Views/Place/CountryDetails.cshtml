@@ -1,0 +1,99 @@
+﻿@using TravelPlan.Common
+@model TravelPlan.Models.Dto.Area.Country.CountryEditDto
+
+@{
+    ViewData["Title"] = "حذف کشور";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                {
+            "warning","primary","info","success","danger","dark"
+                };
+}
+<br>
+@*<h1 style="font-size:22px">حذف کاربر</h1>
+
+    <hr />
+    <h1 style="font-size:20px">میخواهید این کاربر را حذف کنید؟</h1>
+    <br>*@
+
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">حذف کشور</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام</label>
+                            <input asp-for="Name" value="@Model.Name" class="form-control" readonly />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="Slug" class="control-label pb-1" style="font-size:16px">لینک(نامک)</label>
+                            <input asp-for="Slug" value="@Model.Slug" class="form-control" readonly />
+                            <span asp-validation-for="Slug" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="ImageAlt" class="control-label pb-1" style="font-size:16px">Alt عکس</label>
+                            <input asp-for="ImageAlt" value="@Model.ImageAlt" class="form-control" readonly />
+                            <span asp-validation-for="ImageAlt" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="ImageTitle" class="control-label pb-1" style="font-size:16px">Title عکس</label>
+                            <input asp-for="ImageTitle" value="@Model.ImageTitle" class="form-control" readonly />
+                            <span asp-validation-for="ImageTitle" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pb-4">
+                    @* <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات</label>
+                    <input asp-for="Description" class="form-control" readonly />
+                    <span asp-validation-for="Description" class="text-danger"></span> *@
+                    @Html.Raw(Model.Description)
+                </div>
+                <div class="form-group pb-4">
+                    @if (Model.IndexImage != null)
+                    {
+                        <div class="symbol symbol-100px d-flex justify-content-center">
+                            <img src=~/@Model.IndexImage alt="@Model.ImageAlt" title="@Model.ImageTitle" />
+                        </div>
+                    }
+                    else
+                    {
+                        string fName = Model.Name.Substring(0, 1);
+                        var sum = CalculateSumOfLetters.CalculateAsciiSum(Model.Name);
+                        var Color = Convert.ToInt32(Math.Ceiling((double)sum % 6));
+                        <div class="symbol symbol-100px d-flex justify-content-center">
+                            <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/Country/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

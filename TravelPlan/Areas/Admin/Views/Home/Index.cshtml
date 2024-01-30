@@ -1,0 +1,929 @@
+﻿@model TravelPlan.Models.Dto.Area.Home.AdminIndexPageDto
+@{
+    ViewData["Title"] = "ادمین پنل";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Toolbar-->
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">داشبورد</h1>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                        <!--begin::آیتم-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">خانه</a>
+                        </li>
+                        <!--end::آیتم-->
+                        <!--begin::آیتم-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::آیتم-->
+                        <!--begin::آیتم-->
+                        <li class="breadcrumb-item text-muted">داشبورد ها</li>
+                        <!--end::آیتم-->
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+                <!--begin::Actions-->
+                <!--end::Actions-->
+            </div>
+            <!--end::Toolbar container-->
+        </div>
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-fluid">
+                <!--begin::Row-->
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <!--begin::Col-->
+                    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+                        <!--begin::کارت widget 20-->
+                        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-md-50 mb-5 mb-xl-10" style="background-color: #F1416C;background-image:url('/assets/media/patterns/vector-1.png');background-size: cover">
+                            <!--begin::Header-->
+                            <div class="card-header pt-5">
+                                <!--begin::Title-->
+                                <a href="/Admin/Trip/Index" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <!--begin::مقدار-->
+                                        <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">@Model.PublishTrip</span>
+                                        <!--end::مقدار-->
+                                        <!--begin::Subtitle-->
+                                        <span class="text-white opacity-75 pt-1 fw-semibold fs-6">جاذبه منتشر شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                                <!--begin::Title-->
+                                <a href="/Admin/Trip/Rejected" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <!--begin::مقدار-->
+                                        <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">@Model.RejectTrip</span>
+                                        <!--end::مقدار-->
+                                        <!--begin::Subtitle-->
+                                        <span class="text-white opacity-75 pt-1 fw-semibold fs-6">جاذبه رد شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::کارت body-->
+                            <div class="card-body d-flex align-items-end pt-0">
+                                <!--begin::پردازش-->
+                                <div class="d-flex align-items-center flex-column mt-3 w-100">
+                                    <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-75 w-100 mt-auto mb-2">
+                                        <a href="/Admin/Trip/WatingForConfirm" class="text-white">@Model.WatingTrip جاذبه در انتظار تایید</a>
+                                        <span>@Model.PercentOfWatitingTrip%</span>
+                                    </div>
+                                    <div class="h-8px mx-3 w-100 bg-white bg-opacity-50 rounded">
+                                        <div class="bg-white rounded h-8px" role="progressbar" style="width: @Model.PercentOfWatitingTrip%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <!--end::پردازش-->
+                            </div>
+                            <!--end::کارت body-->
+                        </div>
+                        <!--end::کارت widget 20-->
+                        <!--begin::کارت widget 7-->
+                        <div class="card card-flush h-md-50 mb-5 mb-xl-10" style="background-image:url('/assets/media/patterns/c3.png');background-size: cover;">
+                            <!--begin::Header-->
+                            <div class="card-header pt-5">
+                                <!--begin::Title-->
+                                <a href="/Admin/Hotel/Index" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <!--begin::مقدار-->
+                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">@Model.PublishHotel</span>
+                                        <!--end::مقدار-->
+                                        <!--begin::Subtitle-->
+                                        <span class="text-dark pt-1 fw-semibold fs-6">هتل منتشر شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                                <!--begin::Title-->
+                                <a href="/Admin/Hotel/Rejected" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <!--begin::مقدار-->
+                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">@Model.RejectHotel</span>
+                                        <!--end::مقدار-->
+                                        <!--begin::Subtitle-->
+                                        <span class="text-dark opacity-75 pt-1 fw-semibold fs-6">هتل رد شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::کارت body-->
+                            <div class="card-body d-flex align-items-end pt-0">
+                                <!--begin::پردازش-->
+                                <div class="d-flex align-items-center flex-column mt-3 w-100">
+                                    <div class="d-flex justify-content-between fw-bold fs-6 text-dark opacity-75 w-100 mt-auto mb-2">
+                                        <a href="/Admin/Hotel/WatingForConfirm" class="text-dark">@Model.WatingHotel هتل در انتظار تایید</a>
+                                        <span>@Model.PercentOfWatitingHotel%</span>
+                                    </div>
+                                    <div class="h-8px mx-3 w-100 bg-white bg-opacity-50 rounded">
+                                        <div class="bg-white rounded h-8px" role="progressbar" style="width: @Model.PercentOfWatitingHotel%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <!--end::پردازش-->
+                            </div>
+                            <!--end::کارت body-->
+                        </div>
+                        <!--end::کارت widget 7-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+                        <!--begin::کارت widget 17-->
+                        <div class="card card-flush h-md-50 mb-5 mb-xl-10" style="background-image:url('/assets/media/patterns/c1.png');background-size: cover;">
+                            <!--begin::Header-->
+                            <div class="card-header pt-5">
+                                <!--begin::Title-->
+                                <a href="/Admin/Restaurant/Index" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <span class="fs-2hx fw-bold text-light me-2 lh-1 ls-n2">@Model.PublishRestaurant</span>
+                                        <!--begin::Subtitle-->
+                                        <span class="text-light pt-1 fw-semibold fs-6">رستوران منتشر شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                                <!--begin::Title-->
+                                <a href="/Admin/Restaurant/Rejected" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <span class="fs-2hx fw-bold text-light me-2 lh-1 ls-n2">@Model.RejectRestaurant</span>
+                                        <!--begin::Subtitle-->
+                                        <span class="text-light pt-1 fw-semibold fs-6">رستوران رد شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::کارت body-->
+                            <div class="card-body d-flex align-items-end pt-0">
+                                <!--begin::پردازش-->
+                                <div class="d-flex align-items-center flex-column mt-3 w-100">
+                                    <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-75 w-100 mt-auto mb-2">
+                                        <a href="/Admin/Restaurant/WatingForConfirm" class="text-white">@Model.WatingRestaurant رستوران در انتظار تایید</a>
+                                        <span>@Model.PercentOfWatitingRestaurant%</span>
+                                    </div>
+                                    <div class="h-8px mx-3 w-100 bg-white bg-opacity-50 rounded">
+                                        <div class="bg-white rounded h-8px" role="progressbar" style="width: @Model.PercentOfWatitingRestaurant%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <!--end::پردازش-->
+                            </div>
+                            <!--end::کارت body-->
+                        </div>
+                        <!--end::کارت widget 17-->
+                        <!--begin::لیست widget 26-->
+                        <div class="card card-flush h-lg-50" style="background-image:url('/assets/media/patterns/card4-1.svg');background-size: cover;">
+                            <!--begin::Header-->
+                            <div class="card-header pt-5">
+                                <!--begin::Title-->
+                                <a href="/Admin/Comment/Index" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">@Model.PublishComment</span>
+                                        <!--begin::Subtitle-->
+                                        <span class="text-dark pt-1 fw-semibold fs-6">نظر منتشر شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                                <!--begin::Title-->
+                                <a href="/Admin/Comment/RejectedComment" class="text-white">
+                                    <div class="card-title d-flex flex-column">
+                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">@Model.RejectComment</span>
+                                        <!--begin::Subtitle-->
+                                        <span class="text-dark pt-1 fw-semibold fs-6">نظر رد شده</span>
+                                        <!--end::Subtitle-->
+                                    </div>
+                                </a>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::کارت body-->
+                            <div class="card-body d-flex align-items-end pt-0">
+                                <!--begin::پردازش-->
+                                <div class="d-flex align-items-center flex-column mt-3 w-100">
+                                    <div class="d-flex justify-content-between fw-bold fs-6 text-dark opacity-75 w-100 mt-auto mb-2">
+                                        <a href="/Admin/Comment/WatingConfirmComment" class="text-dark">@Model.WatingComment نطر در انتظار تایید</a>
+                                        <span>@Model.PercentOfWatitingComment%</span>
+                                    </div>
+                                    <div class="h-8px mx-3 w-100 bg-white bg-opacity-50 rounded">
+                                        <div class="bg-white rounded h-8px" role="progressbar" style="width: @Model.PercentOfWatitingComment%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <!--end::پردازش-->
+                            </div>
+                            <!--end::کارت body-->
+                        </div>
+                        <!--end::LIst widget 26-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-xxl-6">
+                        <!--begin::Engage widget 10-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Body-->
+                            <div class="card-body d-flex flex-column justify-content-between mt-9 bgi-no-repeat bgi-size-cover bgi-position-x-center pb-0" style="background-position: 100% 50%; background-image:url('/assets/media/stock/900x600/42.png')">
+                                <!--begin::Wrapper-->
+                                <div class="mb-10">
+                                    <!--begin::Title-->
+                                    <div class="fs-2hx fw-bold text-gray-800 text-center mb-13">
+                                        <span class="me-2">
+                                            پیام جدید خود را
+                                            <br />
+                                            <span class="position-relative d-inline-block text-danger">
+                                                <!--begin::Separator-->
+                                                <span class="position-absolute opacity-15 bottom-0 start-0 border-4 border-danger border-bottom w-100"></span>
+                                                <!--end::Separator-->
+                                            </span>
+                                        </span>به اشتراک بگذارید
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Actions-->
+                                    <div class="text-center">
+                                        <a href='/Admin/News/Add' class="btn btn-sm btn-dark fw-bold">نوشتن پیام</a>
+                                    </div>
+                                    <!--begin::Actions-->
+                                </div>
+                                <!--begin::Wrapper-->
+                                <!--begin::Illustration-->
+                                <img class="mx-auto h-150px h-lg-200px theme-light-show" src="/assets/media/illustrations/misc/upgrade.svg" alt="" />
+                                <img class="mx-auto h-150px h-lg-200px theme-dark-show" src="/assets/media/illustrations/misc/upgrade-dark.svg" alt="" />
+                                <!--end::Illustration-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Engage widget 10-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                @* <div class="row gx-5 gx-xl-10">
+                <!--begin::Col-->
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-xl-12 mb-5 mb-xl-10">
+                <!--begin::جداول widget 16-->
+                <div class="card card-flush h-xl-100">
+                <!--begin::Header-->
+                <div class="card-header pt-5">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-gray-800">نویسندگان طلایی</span>
+                </h3>
+                <!--end::Title-->
+                <!--begin::Toolbar-->
+                <!--end::Toolbar-->
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body pt-6">
+                <!--begin::Nav-->
+                <!--begin::Tab Content-->
+                <div class="tab-content">
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade show active" id="kt_stats_widget_16_tab_1">
+                <!--begin::Table container-->
+                <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                <!--begin::Table head-->
+                <thead>
+                <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                <th class="p-0 pb-3 min-w-150px text-start">نویسنده</th>
+                <th class="p-0 pb-3 min-w-100px text-end pe-13">نرخ</th>
+                <th class="p-0 pb-3 w-125px text-end pe-7">چارت</th>
+                <th class="p-0 pb-3 w-50px text-end">نمایش</th>
+                </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-3.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">گای هاوکینز</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">هلند</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">78.34%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_1_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-2.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">هنری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">فرانسه</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">63.83%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_1_2" class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-9.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">جواد یساری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">لهستان</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">92.56%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_1_3" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-7.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">کامران</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">مکزیک</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">63.08%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_1_4" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                </tbody>
+                <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+                </div>
+                <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade" id="kt_stats_widget_16_tab_2">
+                <!--begin::Table container-->
+                <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                <!--begin::Table head-->
+                <thead>
+                <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                <th class="p-0 pb-3 min-w-150px text-start">نویسنده</th>
+                <th class="p-0 pb-3 min-w-100px text-end pe-13">نرخ</th>
+                <th class="p-0 pb-3 w-125px text-end pe-7">چارت</th>
+                <th class="p-0 pb-3 w-50px text-end">نمایش</th>
+                </tr>
+                </thead>
+                // 																<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-25.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">بروکلین سیمونز</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">لهستان</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">85.23%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_2_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-24.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">استر هوارد</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">مکزیک</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">74.83%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_2_2" class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-20.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">آنت بلک</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">هلند</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">90.06%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_2_3" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-17.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">اسفندوین مک کینی</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">فرانسه</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">54.08%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_2_4" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                </tbody>
+                <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+                </div>
+                <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade" id="kt_stats_widget_16_tab_3">
+                <!--begin::Table container-->
+                <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                <!--begin::Table head-->
+                <thead>
+                <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                <th class="p-0 pb-3 min-w-150px text-start">نویسنده</th>
+                <th class="p-0 pb-3 min-w-100px text-end pe-13">نرخ</th>
+                <th class="p-0 pb-3 w-125px text-end pe-7">چارت</th>
+                <th class="p-0 pb-3 w-50px text-end">نمایش</th>
+                </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-11.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">جواد یساری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">آمریکا</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">52.34%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_3_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-23.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">رونالد ریچارز</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">اسپانیا</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">77.65%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_3_2" class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-4.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">الکس سانچز</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">چین</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">82.47%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_3_3" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-1.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">کامران مرادی</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">مکزیک</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">67.84%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_3_4" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                </a>
+                </td>
+                </tr>
+                </tbody>
+                <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+                </div>
+                <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade" id="kt_stats_widget_16_tab_4">
+                <!--begin::Table container-->
+                <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                <!--begin::Table head-->
+                <thead>
+                <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                <th class="p-0 pb-3 min-w-150px text-start">نویسنده</th>
+                <th class="p-0 pb-3 min-w-100px text-end pe-13">نرخ</th>
+                <th class="p-0 pb-3 w-125px text-end pe-7">چارت</th>
+                <th class="p-0 pb-3 w-50px text-end">نمایش</th>
+                </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-12.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">عارف لرستانی</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">لندن</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">53.44%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_4_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-21.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">اسفندوین مک کینیr</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">فرانسه</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">74.64%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_4_2" class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-30.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">جواد یساری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">کره</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">88.56%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_4_3" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-14.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">استر هوارد</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">ایسلند</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">63.16%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_4_4" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                </tbody>
+                <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+                </div>
+                <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade" id="kt_stats_widget_16_tab_5">
+                <!--begin::Table container-->
+                <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                <!--begin::Table head-->
+                <thead>
+                <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                <th class="p-0 pb-3 min-w-150px text-start">نویسنده</th>
+                <th class="p-0 pb-3 min-w-100px text-end pe-13">نرخ</th>
+                <th class="p-0 pb-3 w-125px text-end pe-7">چارت</th>
+                <th class="p-0 pb-3 w-50px text-end">نمایش</th>
+                </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-6.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">هنری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">هلند</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">68.54%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_5_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-10.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">استر هوارد</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">ایتالیا</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">55.83%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_5_2" class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-9.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">جواد یساری</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">لهستان</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">93.46%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_5_3" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-3">
+                <img src="assets/media/avatars/300-3.jpg" class="" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                <a href="../../demo1/dist/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">رالف ادواردز</a>
+                <span class="text-gray-400 fw-semibold d-block fs-7">مکزیک</span>
+                </div>
+                </div>
+                </td>
+                <td class="text-end pe-13">
+                <span class="text-gray-600 fw-bold fs-6">64.48%</span>
+                </td>
+                <td class="text-end pe-0">
+                <div id="kt_table_widget_16_chart_5_4" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div>
+                </td>
+                <td class="text-end">
+                <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                </a>
+                </td>
+                </tr>
+                </tbody>
+                <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+                </div>
+                <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--end::Table container-->
+                </div>
+                <!--end::Tab Content-->
+                </div>
+                <!--end: کارت Body-->
+                </div>
+                <!--end::جداول widget 16-->
+                </div>
+                <!--end::Col-->
+                </div> *@
+                <!--end::Row-->
+            </div>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
+    <!--begin::Main-->

@@ -1,0 +1,249 @@
+﻿@using TravelPlan.Common
+@using TravelPlan.Models.Dto.Area.City;
+@using TravelPlan.Models.Dto.Area.Country;
+@model IEnumerable<TravelPlan.Models.Dto.Area.Trip.TripListDto>
+
+@{
+    ViewData["Title"] = "سفر ها";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                                        {
+                "warning","primary","info","success","danger","dark"
+                                        };
+    var Countries = ViewBag.ListCountry as List<CountryListDto>;
+    var Cities = ViewBag.ListCity as List<CityListDto>;
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <form action="/Admin/Trip/WatingForConfirm" method="post">
+            <div class="card-title">
+                <div class="d-flex align-items-center my-1">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-solid w-200px rounded-start" placeholder="جستجو براساس نام سفر" name="NameTrip" id="NameHotel" data-kt-filter="search">
+                        <button class="btn btn-light rounded-end" type="submit" id="button-addon2" style="background-color: darkgrey;">
+                            <i class="fa-solid fa-magnifying-glass" style="color: black;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <a href="/admin/Trip/WatingForConfirm" class="btn btn-primary m-2">
+                    تازه سازی صفحه
+                </a>
+
+            </div>
+        </form>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-light">
+                <a href="/Admin/Trip/Create" style="font-size:15px">افزودن هتل جدید</a>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-rounded table-striped table-hover gy-7 gs-7" id="DatatableList">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام سفر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            کشور
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            شهر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نوع سفر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نمایش در صفحه اصلی
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            تصویر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            وضیعیت
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter1 = 1;
+                        int counter2 = 2;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        string NameCountry = Countries.Where(x => x.Id == item.CountryId).Select(x => x.Name).FirstOrDefault();
+                        string NameCity = Cities.Where(x => x.Id == item.CityId).Select(x => x.Name).FirstOrDefault();
+                        <tr>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @NameCountry
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @NameCity
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @switch (item.TripDuration)
+                                {
+                                    case TravelPlan.Models.Entities.TripDuration.Daily:
+                                        <span>روزانه</span>
+                                        break;
+                                    case TravelPlan.Models.Entities.TripDuration.OneToThreeDays:
+                                        <span>1 تا 3 روز</span>
+                                        break;
+                                    case TravelPlan.Models.Entities.TripDuration.Weekly:
+                                        <span>هفتگی</span>
+                                        break;
+                                    case TravelPlan.Models.Entities.TripDuration.MoreThanAWeek:
+                                        <span>بیشتر از یک هفته</span>
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                <input asp-for="@item.IsSelected" class="form-check-input " type="checkbox" disabled style="border-color:gray;" />
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @if (item.IndexImage != null)
+                                {
+                                    <div class="symbol symbol-50px">
+                                        <img src=~/@item.IndexImage alt="@item.ImageAlt" title="@item.ImageTitle" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    string fName = item.Name.Substring(0, 1);
+                                    var Color = (CalculateSumOfLetters.CalculateAsciiSum(item.Name) % 6);
+                                    <div class="symbol symbol-50px">
+                                        <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+                                    </div>
+
+                                }
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                در صف انتظار
+                            </td>
+                            <td width="140px">
+                                <div class="col-sm-6">
+                                    <a href="/Admin/Trip/Details/@item.Id" class="badge badge-info mb-1 py-4" style="width:67px;height:20px;justify-content: center;">جزییات</a>
+                                    <div class="form-group d-flex justify-content-center">
+                                        <a href="/Admin/Trip/ConfirmByAdmin/@item.Id" class="badge badge-success  mb-1 py-4" style="width:67px;height:20px;justify-content: center;" data-bs-toggle="modal" data-bs-target="#kt_modal_@counter1">تایید جاذبه</a>
+                                        <!--begin::modal-->
+                                        <div class="modal fade" tabindex="-1" id="kt_modal_@counter1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">تایید جاذبه</h3>
+
+                                                        <!--begin::Close-->
+                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>میخواهید این جاذبه را تایید کنید؟</p>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                                        <a href="/Admin/Trip/ConfirmByAdmin/@item.Id" class="btn btn-success">تایید جاذبه</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::modal-->
+                                    </div>
+                                    <div class="form-group d-flex justify-content-center">
+                                        <a href="/Admin/Trip/RejectedByAdmin/@item.Id" class="badge badge-danger py-4" style="width:67px;height:20px;justify-content: center;" data-bs-toggle="modal" data-bs-target="#kt_modal_@counter2">رد جاذبه</a>
+                                        <!--begin::modal-->
+                                        <div class="modal fade" tabindex="-1" id="kt_modal_@counter2">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">رد جاذبه</h3>
+
+                                                        <!--begin::Close-->
+                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>میخواهید این جاذبه را رد کنید؟</p>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                                        <a href="/Admin/Trip/RejectedByAdmin/@item.Id" class="btn btn-danger">رد کردن جاذبه</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::modal-->
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        counter1 += 2;
+                        counter2 += 2;
+                    }
+                </tbody>
+            </table>
+            @if (ViewBag.NoCityFound != null)
+            {
+                <div class="text-center NoUserFound">
+                    <span class="text-danger "> @ViewBag.NoCityFound</span>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-footer">
+        <ul class="pagination">
+            <li class="page-item previous disabled"><a href="#" class="page-link"><i class="previous"></i></a></li>
+            <li class="page-item active"><a href="#" class="page-link">1</a></li>
+            <li class="page-item "><a href="#" class="page-link">2</a></li>
+            <li class="page-item "><a href="#" class="page-link">3</a></li>
+            <li class="page-item "><a href="#" class="page-link">4</a></li>
+            <li class="page-item "><a href="#" class="page-link">5</a></li>
+            <li class="page-item "><a href="#" class="page-link">6</a></li>
+            <li class="page-item next"><a href="#" class="page-link"><i class="next"></i></a></li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        //let DatatableList;
+
+
+        //      $(document).ready(function () {
+        //          DatatableList = $("#DatatableList").DataTable({
+        //              order: [[0, 'asc']],
+        //              scrollX: true,
+        //              //language: { url: location.origin + '/Media/datatables.json' },
+        //              columnDefs: [{ targets: [0], type: "num" }]
+        //          });
+        //      });
+
+        //      $("input[data-kt-filter='search']").on("input", function (e) {
+        //          DatatableList.search(e.target.value).draw();
+        //      });
+    </script>
+}
+@section Css{
+    <link href="~/css/Area/Users/Index.css" rel="stylesheet" type="text/css" />
+}
+
+
+
+

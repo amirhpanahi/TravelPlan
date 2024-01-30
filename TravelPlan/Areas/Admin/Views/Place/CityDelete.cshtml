@@ -1,0 +1,121 @@
+﻿@using TravelPlan.Common
+@using TravelPlan.Models.Dto.Area.Country;
+@model TravelPlan.Models.Dto.Area.City.CityDeleteDto
+
+@{
+    ViewData["Title"] = "حذف شهر";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                {
+            "warning","primary","info","success","danger","dark"
+                };
+    var Countries = ViewBag.ListCountry as List<CountryListDto>;
+    var NameCountry = Countries.Where(x => x.Id == Model.CountryId).Select(x => x.Name).FirstOrDefault();
+}
+<br>
+@*<h1 style="font-size:22px">حذف کاربر</h1>
+
+    <hr />
+    <h1 style="font-size:20px">میخواهید این کاربر را حذف کنید؟</h1>
+    <br>*@
+
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">حذف شهر</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <text>@ViewBag.Message</text>
+                    </div>
+                }
+                <form action="/Admin/City/Delete" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <div class="form-group pb-4">
+                        <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام شهر</label>
+                        <input asp-for="Name" value="@Model.Name" class="form-control" readonly />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام کشور</label>
+                        <input asp-for="Name" value="@NameCountry" class="form-control" readonly />
+                    </div>
+                    <div class="form-group pb-4">
+                        @* <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات</label>
+                        <input asp-for="Description" class="form-control" readonly />
+                        <span asp-validation-for="Description" class="text-danger"></span> *@
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="form-group pb-4">
+                        @if (Model.IndexImage != null)
+                        {
+                            <div class="symbol symbol-100px d-flex justify-content-center">
+                                <img src=~/@Model.IndexImage alt="@Model.ImageAlt" title="@Model.ImageTitle" />
+                            </div>
+                        }
+                        else
+                        {
+                            string fName = Model.Name.Substring(0, 1);
+                            var sum = CalculateSumOfLetters.CalculateAsciiSum(Model.Name);
+                            var Color = Convert.ToInt32(Math.Ceiling((double)sum % 6));
+                            <div class="symbol symbol-100px d-flex justify-content-center">
+                                <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                            حذف شهر
+                        </button>
+                        <!--begin::modal-->
+                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">حذف شهر</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>مطمئن هستید که میخواهید شهر @Model.Name را حذف کنید؟</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                        <button type="submit" class="btn btn-danger">ثبت تغییرات</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::modal-->
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/City/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -1,0 +1,75 @@
+﻿@model TravelPlan.Models.Dto.Main.Comment.CommentEditDto
+@{
+    ViewData["Title"] = "ویرایش کامنت";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">ویرایش کامنت</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="/Admin/Comment/Edit" method="post">
+                    <br>
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="form-group pb-4">
+                                <label asp-for="CommentText" class="control-label pb-1" style="font-size:16px">متن کامنت</label>
+                                <textarea asp-for="CommentText" class="form-control" style="height:140px"></textarea>
+                                <span asp-validation-for="CommentText" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                            ویرایش کامنت
+                        </button>
+                        <!--begin::modal-->
+                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">ویرایش کامنت</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>میخواهید این کامنت را ویرایش کنید؟</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                        <button type="submit" class="btn btn-success">ثبت تغییرات</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::modal-->
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/comment/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

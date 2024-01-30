@@ -1,0 +1,90 @@
+﻿@model TravelPlan.Models.Dto.Area.Roles.RoleListDto
+
+@{
+    ViewData["Title"] = "ویرایش نقش";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            ویرایش نقش
+            @*            <h1 style="font-size:20px">میخواهید این نقش را ویرایش کنید؟</h1>
+            <p class="text-danger">
+            اگر به کاربری این نقش را داده اید ممکن است که دچار مشکل شوید
+            </p>*@
+        </h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <text>@ViewBag.Message</text>
+                    </div>
+                }
+                <form action="/Admin/roles/Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <div class="form-group pb-4">
+                        <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام نقش</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات نقش</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                            ویرایش نقش
+                        </button>
+                        <!--begin::modal-->
+                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">ویرایش نقش</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>میخواهید این نقش را ویرایش کنید؟</p>
+                                        <p class="text-danger">اگر به کاربری این نقش را داده اید ممکن است که دچار مشکل شوید</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                        <button type="submit" class="btn btn-success">ثبت تغییرات</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::modal-->
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/roles/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

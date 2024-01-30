@@ -1,0 +1,100 @@
+﻿@model TravelPlan.Models.Dto.Main.Comment.CommentListDto
+
+@{
+    ViewData["Title"] = "جزییات کامنت";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">جزییات کامنت</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="UserId" class="control-label pb-1" style="font-size:16px">نام نویسنده</label>
+                            <input asp-for="UserId" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="ItemId" class="control-label pb-1" style="font-size:16px">نام خبر</label>
+                            <input asp-for="ItemId" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group pb-4">
+                            <label asp-for="RegisterDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ ثبت کامنت</label>
+                            <input asp-for="RegisterDatePersian" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group pb-3">
+                            <label asp-for="ParentId" class="control-label pb-1" style="font-size:16px">کامنت والد</label>
+                            <input asp-for="ParentId" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group pb-4">
+                            <label asp-for="CommentText" class="control-label pb-1" style="font-size:16px">متن کامنت</label>
+                            <textarea asp-for="CommentText" class="form-control" readonly style="height:160px"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            @*<div class="col-md-6 col-sm-6">
+                <div class="form-group pb-4">
+                <label asp-for="UserId" class="control-label pb-1" style="font-size:16px">نام دسته بندی</label>
+                <input asp-for="UserId" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                <label asp-for="NewsId" class="control-label pb-1" style="font-size:16px">لینک(نامک)</label>
+                <input asp-for="NewsId" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                <label asp-for="CommentText" class="control-label pb-1" style="font-size:16px">توضیحات</label>
+                <input asp-for="CommentText" class="form-control" readonly />
+                </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                <div class="form-group pb-3">
+                <label asp-for="IsActive" class="control-label pb-1" style="font-size:16px">فعال بودن</label>
+                <p style="padding:8px 13px 8px 13px">@Model.IsActive</p>
+                </div>
+                <div class="form-group pb-3">
+                <label asp-for="IsDelete" class="control-label pb-1" style="font-size:16px">نمایش در صفحه اصلی</label>
+                <p style="padding:8px 13px 8px 13px">@Model.IsDelete</p>
+                </div>
+                <div class="form-group pb-3">
+                <label asp-for="ParentId" class="control-label pb-1" style="font-size:16px">دسته بالایی</label>
+                <input asp-for="ParentId" class="form-control" readonly />
+                </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                <div class="form-group pb-4">
+                <label asp-for="RegisterDatePersian" class="control-label pb-1" style="font-size:16px">Altعکس</label>
+                <input asp-for="RegisterDatePersian" class="form-control" readonly />
+                </div>
+                </div>*@
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/Admin/Comment/Index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+

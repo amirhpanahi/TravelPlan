@@ -1,0 +1,57 @@
+﻿@model TravelPlan.Models.Dto.Area.Roles.RoleCreateDto
+
+@{
+    ViewData["Title"] = "ایجاد نقش";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">ایجاد نقش</h3>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-light">
+                Action
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <text>@ViewBag.Message</text>
+                    </div>
+                }
+                <form action="/Admin/roles/Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام نقش</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات نقش</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <input type="submit" value="ثبت نقش" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/roles/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

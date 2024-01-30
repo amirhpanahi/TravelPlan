@@ -1,0 +1,74 @@
+﻿@using TravelPlan.Models.Dto.Area.Users;
+@model List<TravelPlan.Models.Dto.Main.Comment.CommentListDto>
+@{
+    ViewData["Title"] = "کامنت های منتشر شده";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var users = ViewBag.Users as List<UserListDto>;
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+                <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="جستجو تگ">
+            </div>
+        </h3>
+        <div class="card-toolbar">
+            لیست نظرات منتشر شده
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام خبر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام نویسنده
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            متن کامنت
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            تاریخ ثبت فارسی
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string NameWriter = users.Where(x => x.Id == item.UserId).Select(x => x.FullName).FirstOrDefault();
+
+                        <tr>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.ItemId)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @NameWriter
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.CommentText)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.RegisterDatePersian)
+                            </td>
+                            <td width="140px">
+                                <a href="/Admin/Comment/Edit/@item.Id" class="badge badge-success mb-1 py-4" style="width:67px;height:20px;justify-content: center;">ویرایش</a>
+                                <a href="/Admin/Comment/Details/@item.Id" class="badge badge-info  mb-1 py-4" style="width:67px;height:20px;justify-content: center;">جزییات</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+    </div>
+</div>

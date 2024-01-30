@@ -1,0 +1,14 @@
+﻿@model TravelPlan.Models.Dto.Main.Search.SearchByNameDto;
+
+@{
+    ViewData["Title"] = "جست و جو";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Component.InvokeAsync("SearchItem",new {Name=@Model.Name ,Type = "OnlyName"}); 
+
+
+@section Css{
+    <link rel="stylesheet"  href="~/css/Main/Search/SearchByName.css" />
+
+}

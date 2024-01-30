@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TravelPlan.Models.Dto.Area.Roles.RoleListDto>
+
+@{
+    ViewData["Title"] = "نقش ها";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">لیست نقش ها</h3>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-light">
+                <a href="/admin/roles/create" style="font-size:15px">افزودن نقش جدید</a>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            نام نقش
+                        </th>
+                        <th>
+                            توضیحات نقش
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                <a href="/admin/roles/Edit/@item.Id" class="badge badge-success mb-1 py-3">ویرایش</a>
+                                <a href="/admin/roles/UsersInRole?Name=@item.Name" class="badge badge-info mb-1 py-3">کاربران این نقش</a>
+                                @*@Html.ActionLink("کاربران این نقش", "UsersInRole","Roles", new { Name=item.Name , area="admin" }) *@
+                                <a href="/admin/roles/Delete/@item.Id" class="badge badge-danger mb-1 py-3">حذف</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿@model TravelPlan.Models.Dto.Area.Country.CountryCreateDto
+
+@{
+    ViewData["Title"] = "اضافه کردن کشور";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">اضافه کردن کشور</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="/Admin/Country/Create" method="post" enctype="multipart/form-data">
+                    <br>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام کشور</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="Slug" class="control-label pb-1" style="font-size:16px">لینک(نامک)</label>
+                                <input asp-for="Slug" class="form-control" />
+                                <span asp-validation-for="Slug" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="form-group pb-4">
+                                <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات(Html Editor)</label>
+                                <textarea asp-for="Description" class="form-control" id="summernote"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="ImageTitle" class="control-label pb-1" style="font-size:16px">Title عکس</label>
+                                <input asp-for="ImageTitle" class="form-control" />
+                                <span asp-validation-for="ImageTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="ImageAlt" class="control-label pb-1" style="font-size:16px">Alt عکس</label>
+                                <input asp-for="ImageAlt" class="form-control" />
+                                <span asp-validation-for="ImageAlt" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group pb-4">
+                                <label asp-for="IndexImageFile" class="control-label pb-1" style="font-size:16px">تصویر شاخص</label>
+                                <input type="file" name="IndexImageFile" asp-for="IndexImageFile" class="form-control" accept=".png,.jpg,.jpeg,.gif" />
+                                <p class="secondary" style="margin-bottom: 0px;">حداکثر سایز آپلود عکس 5 مگابایت</p>
+                                <span asp-validation-for="IndexImageFile" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5 d-flex justify-content-center">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button name="Publish" value="Publish" class="btn btn-success mx-1" id="SubmitBtn">ذخیره کشور</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/Country/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <script src="~/lib/summernote/summernote-lite.js"></script>
+        <script src="~/lib/summernote/lang/summernote-fa-IR.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#summernote').summernote({
+                    placeholder: 'اینجا بنویس',
+                    tabsize: 2,
+                    height: 100,
+                    lang: 'fa-IR'
+                });
+            });
+        </script>
+    }
+}
+@section Css {
+    @{
+        <link href="~/lib/summernote/summernote-lite.css" rel="stylesheet">
+    }
+}

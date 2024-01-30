@@ -1,0 +1,103 @@
+﻿@using TravelPlan.Common
+@model IEnumerable<TravelPlan.Models.Dto.Area.Users.UserListDto>
+
+@{
+    ViewData["Title"] = ViewBag.roleName;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                            {
+                "warning","primary","info","success","danger","dark"
+                            };
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+                <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="جستجو کاربران">
+            </div>
+        </h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="vertical-align: middle;text-align: center;">
+                            نام و نام خانوادگی
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            ایمیل
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            تایید ایمیل
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            شماره همراه
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;">
+                            تصویر
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;" dir="ltr">
+                            تاریخ ثبت نام(فارسی)
+                        </th>
+                        <th style="vertical-align: middle;text-align: center;" dir="ltr">
+                            تاریخ آخریت ورود(فارسی)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @item.FullName
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                <input asp-for="@item.EmailConfirmed" class="form-check-input " type="checkbox" disabled style="border-color:gray;" />
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;">
+                                @if (item.PicAddress != null)
+                                {
+                                    <div class="symbol symbol-50px">
+                                        <img src=~/@item.PicAddress alt="@item.PicAlt" title="@item.PicTitle" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    var Color = (CalculateSumOfLetters.CalculateSum(item.PhoneNumber) % 6);
+                                    <div class="symbol symbol-50px">
+                                        <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]"></div>
+                                    </div>
+
+                                }
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;" dir="ltr">
+                                @Html.DisplayFor(modelItem => item.DateRegisterPresian)
+                            </td>
+                            <td style="vertical-align: middle;text-align: center;" dir="ltr">
+                                @Html.DisplayFor(modelItem => item.LastLoginDatePersian)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/roles/index" style="font-size:18px"> بازگشت به لیست نقش ها</a>
+    </div>
+</div>

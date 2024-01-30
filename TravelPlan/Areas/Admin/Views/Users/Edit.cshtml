@@ -1,0 +1,123 @@
+﻿@using TravelPlan.Common
+@model TravelPlan.Models.Dto.Area.Users.UserEditDto
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+            {
+                "warning","primary","info","success","danger","dark"
+            };
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">ویرایش کاربر</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <text>@ViewBag.Message</text>
+                    </div>
+                }
+                <form action="/Admin/Users/Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <div class="form-group pb-4">
+                        <label asp-for="FullName" class="control-label pb-1" style="font-size:16px">نام</label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="Email" class="control-label pb-1" style="font-size:16px">ایمیل</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="PhoneNumber" class="control-label pb-1" style="font-size:16px">تلفن همراه</label>
+                        <input asp-for="PhoneNumber" maxlength="11" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="PicAlt" class="control-label pb-1" style="font-size:16px">alt عکس</label>
+                        <input asp-for="PicAlt" class="form-control" />
+                        <span asp-validation-for="PicAlt" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="PicTitle" class="control-label pb-1" style="font-size:16px">title عکس</label>
+                        <input asp-for="PicTitle" class="form-control" />
+                        <span asp-validation-for="PicTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="PicAddress" class="control-label pb-1 d-block" style="font-size:16px"> عکس موجود</label>
+                        @if (Model.PicAddress != null)
+                        {
+                            <div class="symbol symbol-100px d-flex justify-content-center">
+                                <img src=~/@Model.PicAddress alt="@Model.PicAlt" title="@Model.PicTitle" />
+                            </div>
+                        }
+                        else
+                        {
+                            var Color = (CalculateSumOfLetters.CalculateSum(Model.PhoneNumber) % 6);
+                            <div class="symbol symbol-100px d-flex justify-content-center">
+                                <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]"></div>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="form-group pb-4">
+                        <label asp-for="PicAddress" class="control-label pb-1" style="font-size:16px"> عکس جدید</label>
+                        <input type="file" name="file" asp-for="PicAddress" class="form-control" accept=".png,.jpg,.jpeg,.gif" />
+                        <span asp-validation-for="PicAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                            ویرایش کاربر
+                        </button>
+                        <!--begin::modal-->
+                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">ویرایش کاربر</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>میخواهید این کاربر را ویرایش کنید؟</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">بستن</button>
+                                        <button type="submit" class="btn btn-success">ویرایش کاربر</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::modal-->
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/admin/users/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

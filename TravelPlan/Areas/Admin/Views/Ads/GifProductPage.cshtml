@@ -1,0 +1,216 @@
+﻿@model TravelPlan.Models.Dto.Area.Ads.AdsDto
+
+@{
+    ViewData["Title"] = "مدیریت تبلیغات صفحه محصول";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <!--begin::Title-->
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">تبلیغات</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <!--begin::آیتم-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">ادمین</a>
+                </li>
+                <!--end::آیتم-->
+                <!--begin::آیتم-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                </li>
+                <!--end::آیتم-->
+                <!--begin::آیتم-->
+                <li class="breadcrumb-item text-muted">تبلیغات</li>
+                <!--end::آیتم-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            مدیریت تبلیغات صفحه محصول
+        </h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <form action="/Admin/Ads/GifProductPage" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center ">
+                            <p>گیف شماره 1</p>
+                            <img src="~/@Model.GifAddress1" alt="@Model.GifAlt1" title="@Model.GifTitle1" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif1" name="Gif1" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink1" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt1" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle1" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>گیف شماره2</p>
+                            <img src="~/@Model.GifAddress2" alt="@Model.GifAlt2" title="@Model.GifTitle2" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif2" name="Gif2" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink2" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt2" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle2" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>گیف شماره3</p>
+                            <img src="~/@Model.GifAddress3" alt="@Model.GifAlt3" title="@Model.GifTitle3" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif3" name="Gif3" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink3" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt3" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle3" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>گیف شماره4</p>
+                            <img src="~/@Model.GifAddress4" alt="@Model.GifAlt4" title="@Model.GifTitle4" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif4" name="Gif4" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink4" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt4" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle4" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>گیف شماره5</p>
+                            <img src="~/@Model.GifAddress5" alt="@Model.GifAlt5" title="@Model.GifTitle5" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif5" name="Gif5" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink5" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt5" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle5" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>گیف شماره6</p>
+                            <img src="~/@Model.GifAddress6" alt="@Model.GifAlt6" title="@Model.GifTitle6" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" asp-for="Gif6" name="Gif6" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifPhotoLink6" class="form-control" placeholder="لینک بنر" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input asp-for="GifAlt6" class="form-control" placeholder="alt بنر" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="GifTitle6" class="form-control" placeholder="title بنر" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">
+                        ذخیره
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="card-footer">
+    </div>
+</div>
+@section css{
+    <link rel="stylesheet" href="~/css/Area/Ads/Index.css?v=1">
+}

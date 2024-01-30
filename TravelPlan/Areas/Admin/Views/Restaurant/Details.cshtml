@@ -1,0 +1,230 @@
+﻿@using TravelPlan.Common
+@model TravelPlan.Models.Dto.Area.Restaurant.RestaurantDetailsDto
+
+@{
+    ViewData["Title"] = "جزییات خبر";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Colors = new string[]
+                            {
+                "warning","primary","info","success","danger","dark"
+                            };
+}
+<br>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">جزییات خبر (@Model.Name)</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="Name" class="control-label pb-1" style="font-size:16px">نام هتل</label>
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="Slug" class="control-label pb-1" style="font-size:16px">لینک(نامک)</label>
+                    <input asp-for="Slug" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="CountryName" class="control-label pb-1" style="font-size:16px">نام کشور</label>
+                    <input asp-for="CountryName" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="CityName" class="control-label pb-1" style="font-size:16px">نام شهر</label>
+                    <input asp-for="CityName" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="form-group pb-4">
+                    <label asp-for="Description" class="control-label pb-1" style="font-size:16px">توضیحات(Html Editor)</label>
+                    <div style="border-radius: 16px;border: 1px solid #ccc!important;padding: 15px 15px;min-height:100px">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="form-group pb-4">
+                    <label asp-for="RestaurantSummary" class="control-label pb-1" style="font-size:16px">خلاصه ای از هتل</label>
+                    <textarea asp-for="RestaurantSummary" class="form-control" readonly></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="form-group pb-4">
+                    <label asp-for="AddressAndDetails" class="control-label pb-1" style="font-size:16px">آدرس و جزییات</label>
+                    <div style="border-radius: 16px;border: 1px solid #ccc!important;padding: 15px 15px;min-height:100px">
+                        @Html.Raw(Model.AddressAndDetails)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <div class="mb-0">
+                        <label class="form-label">تگ های مربوطه</label>
+                        <input class="form-control form-control-solid" placeholder="تایپ کنید و اینتر بزنبد" value="@Model.Tags" id="kt_tagify_1" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <div class="mb-0">
+                        <label class="form-label">کلمات کلیدی(برای سئو)</label>
+                        <input class="form-control form-control-solid" placeholder="تایپ کنید و اینتر بزنبد" value="@Model.KeyWords" id="kt_tagify_2" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="RegisterDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ ثبت </label>
+                    <input asp-for="RegisterDatePersian" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="PublishDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ انتشار</label>
+                    <input asp-for="PublishDatePersian" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="RejectDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ رد شدن</label>
+                    <input asp-for="RejectDatePersian" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="DeleteDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ حذف</label>
+                    <input asp-for="DeleteDatePersian" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="WriterName" class="control-label pb-1" style="font-size:16px">نام نویسنده</label>
+                    <input asp-for="WriterName" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="Status" class="control-label pb-1" style="font-size:16px">وضعیت انتشار</label>
+                    <input asp-for="Status" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="ImageAlt" class="control-label pb-1" style="font-size:16px">Alt عکس</label>
+                    <input asp-for="ImageAlt" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pb-4">
+                    <label asp-for="ImageTitle" class="control-label pb-1" style="font-size:16px">Title عکس</label>
+                    <input asp-for="ImageTitle" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="form-group py-6 text-center">
+                    <label asp-for="IsSelected" class="control-label pb-1" style="font-size:16px;margin-left: 15px;">نمایش در صفحه اصلی</label>
+                    <input asp-for="IsSelected" class="form-check-input h-30px w-30px" type="checkbox" disabled style="border-color:gray;" />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="form-group pb-4">
+                    <label asp-for="IndexImage" class="control-label pb-1" style="font-size:16px;display: block;">عکس خبر</label>
+                    @if (Model.IndexImage != null)
+                    {
+                        <div class="text-center">
+                            <img src=~/@Model.IndexImage alt="@Model.IndexImage" title="@Model.IndexImage" style="width: 30%;border-radius: 10px;" />
+                        </div>
+                    }
+                    else
+                    {
+                        string fName = Model.Name.Substring(0, 1);
+                        var sum = CalculateSumOfLetters.CalculateAsciiSum(Model.Name);
+                        var Color = Convert.ToInt32(Math.Ceiling((double)sum % 6));
+                        <div class="text-center">
+                            <div class="symbol symbol-100px">
+                                <div class="symbol-label fs-2 fw-semibold bg-@Colors[Color] text-inverse-@Colors[Color]">@fName</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (Model.VideoAddress != null)
+        {
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="form-group pb-4">
+                        <label asp-for="VideoAddress" class="control-label pb-1" style="font-size:16px;display: block;">ویدیو خبر</label>
+                        <div class="text-center">
+                            <video controls style="width: 80%;border-radius: 10px;">
+                                <source src="~/@Model.VideoAddress" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <div class="card-footer">
+            @switch (ViewBag.StatusName)
+            {
+                case "WaitingForConfirm":
+                    <a href="/Admin/Restaurant/WatingForConfirm" style="font-size:18px">بازگشت به لیست</a>
+                    break;
+                case "RejectedByAdmin":
+                    <a href="/Admin/Restaurant/Rejected" style="font-size:18px">بازگشت به لیست</a>
+                    break;
+                case "Publish":
+                    <a href="/admin/Restaurant/Index" style="font-size:18px">بازگشت به لیست</a>
+                    break;
+                case "Delete":
+                    <a href="/admin/Restaurant/Deleted" style="font-size:18px">بازگشت به لیست</a>
+                    break;
+            }
+
+        </div>
+    </div>
+
+
+    @section Scripts{
+        <script>
+            var inputTags = document.querySelector("#kt_tagify_1");
+            var inputKeywords = document.querySelector("#kt_tagify_2");
+
+            var keys = new Tagify(inputKeywords);
+            var Tags = new Tagify(inputTags);
+        </script>
+    }

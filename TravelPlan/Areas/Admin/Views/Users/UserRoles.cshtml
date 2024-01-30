@@ -1,0 +1,40 @@
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "نقش ها";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">لیست نقش های هر کابر</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="bg-info rounded d-flex justify-content-center">نام نقش</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="bg-danger rounded d-flex justify-content-center">
+                                    @item
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="/admin/users/index" style="font-size:18px">بازگشت به لیست</a>
+        </div>
+    </div>

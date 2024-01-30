@@ -1,0 +1,95 @@
+﻿@using TravelPlan.Models.Dto.Area.City;
+@using TravelPlan.Models.Dto.Area.Country;
+@using TravelPlan.Models.Dto.Area.Hotel;
+@using TravelPlan.Models.Dto.Area.Restaurant;
+@using TravelPlan.Models.Dto.Area.Trip;
+@{
+    var Countries = ViewBag.ListCountry as List<CountryListDto>;
+    var Cities = ViewBag.ListCity as List<CityListDto>;
+
+    var listHotel = ViewBag.Hotels as List<HotelListDto>;
+    var listTrip = ViewBag.Trips as List<TripListDto>;
+    var listRestaurant = ViewBag.Restaurants as List<RestaurantListDto>;
+
+}
+<section class="container mb-sm-5 mb-4 pb-lg-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 pb-2">
+        <h2 class="h4 mb-sm-0 font-vazir">منتخب ادمین</h2>
+    </div>
+    <div class="tns-carousel-wrapper tns-controls-outside-xxl tns-nav-outside">
+        <div class="tns-carousel-inner"
+             data-carousel-options="{&quot;items&quot;: 3, &quot;gutter&quot;: 24, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1,&quot;nav&quot;:true},&quot;500&quot;:{&quot;items&quot;:2},&quot;850&quot;:{&quot;items&quot;:3},&quot;1400&quot;:{&quot;items&quot;:3,&quot;nav&quot;:false}}}">
+            @foreach (var item in listHotel)
+            {
+                string NameCountry = Countries.Where(x => x.Id == item.CountryId).Select(x => x.Name).FirstOrDefault();
+                string NameCity = Cities.Where(x => x.Id == item.CityId).Select(x => x.Name).FirstOrDefault();
+                <div>
+                    <div class="position-relative">
+                        <div class="position-relative mb-3">
+                            <img class="rounded-3" src="@item.IndexImage"
+                                 alt="@item.ImageAlt" title="@item.ImageTitle">
+                        </div>
+                        <h3 class="mb-2 fs-lg">
+                            <a class="nav-link stretched-link" href="/Hotel/@item.Slug">
+                                @item.Name
+                            </a>
+                        </h3>
+                        <ul class="list-inline mb-0 fs-sm">
+                            <li class="list-inline-item pe-1">
+                                <i class="fi-map-pin mt-n1 me-1 fs-base text-muted align-middle"></i>@NameCountry , @NameCity
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            @foreach (var item in listRestaurant)
+            {
+                <!-- Item-->
+                string NameCountry = Countries.Where(x => x.Id == item.CountryId).Select(x => x.Name).FirstOrDefault();
+                string NameCity = Cities.Where(x => x.Id == item.CityId).Select(x => x.Name).FirstOrDefault();
+                <div>
+                    <div class="position-relative">
+                        <div class="position-relative mb-3">
+                            <img class="rounded-3" src="@item.IndexImage"
+                                          alt="@item.ImageAlt" title="@item.ImageTitle">
+                        </div>
+                        <h3 class="mb-2 fs-lg">
+                            <a class="nav-link stretched-link" href="/Restaurant/@item.Slug">
+                                @item.Name
+                            </a>
+                        </h3>
+                        <ul class="list-inline mb-0 fs-sm">
+                            <li class="list-inline-item pe-1">
+                                <i class="fi-map-pin mt-n1 me-1 fs-base text-muted align-middle"></i>@NameCountry , @NameCity
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            @foreach (var item in listTrip)
+            {
+                <!-- Item-->
+                string NameCountry = Countries.Where(x => x.Id == item.CountryId).Select(x => x.Name).FirstOrDefault();
+                string NameCity = Cities.Where(x => x.Id == item.CityId).Select(x => x.Name).FirstOrDefault();
+                <div>
+                    <div class="position-relative">
+                        <div class="position-relative mb-3">
+                            <img class="rounded-3" src="@item.IndexImage"
+                                          alt="@item.ImageAlt" title="@item.ImageTitle">
+                        </div>
+                        <h3 class="mb-2 fs-lg">
+                            <a class="nav-link stretched-link" href="/Trip/@item.Slug">
+                                @item.Name
+                            </a>
+                        </h3>
+                        <ul class="list-inline mb-0 fs-sm">
+                            <li class="list-inline-item pe-1">
+                                <i class="fi-map-pin mt-n1 me-1 fs-base text-muted align-middle"></i>@NameCountry , @NameCity
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

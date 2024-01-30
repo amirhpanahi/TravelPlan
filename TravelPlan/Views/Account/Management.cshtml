@@ -1,0 +1,115 @@
+﻿@model TravelPlan.Models.Dto.Main.Account.RegisterDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>ثبت نام | ورود</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Main/Account/Management.css?v=1">
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css">
+    <link rel="icon" type="image/x-icon" href="~/Static Files/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <div class="container1 a-container" id="a-container">
+            <form action="/Account/Register" method="post" class="form" id="a-form" onsubmit="return validateFormRegister()">
+                <input type="hidden" name="SendType" value="Register">
+
+                <h2 class="form_title title">  ایجاد حساب کاربری </h2>
+
+                <span class="text-danger" id="Error-Register-Message"></span>
+
+                <input asp-for="FullName" class="form__input" type="text" placeholder="  نام و نام خانوادگی">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+
+                <input asp-for="Email" class="form__input" type="text" placeholder="  ایمیل">
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <input asp-for="PhoneNumber" class="form__input" type="text" placeholder="  شماره همراه">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                <input asp-for="Password" class="form__input" type="password" placeholder="  رمز عبور">
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <input asp-for="ConfirmPassword" class="form__input" type="password" placeholder="  تکرار رمزعبور">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+
+                <input type="submit" value="ثبت نام" class="button" />
+            </form>
+        </div>
+        <div class="container1 b-container" id="b-container">
+            <form action="/Account/Login" method="post" class="form" id="b-form" onsubmit="return validateFormLogin()">
+                <input type="hidden" name="SendType" value="Login">
+                <h2 class="form_title title">ورود به حساب کاربری</h2>
+
+                <span class="text-danger" id="Error-Login-Message"></span>
+                
+                <input asp-for="Email" class="form__input" type="text" placeholder="  ایمیل">
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <input asp-for="Password" class="form__input" type="password" placeholder="  پسورد">
+                @* <a>فراموشی رمز عبور</a> *@
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="submit" value="ورود" class="button" />
+            </form>
+        </div>
+        <div class="switch" id="switch-cnt">
+            <div class="switch__circle"></div>
+            <div class="switch__circle switch__circle--t"></div>
+            <div class="switch__container" id="switch-c1">
+                <h2 class="switch__title title">ورود به حساب کاربری</h2>
+                <p class="switch__description description">اگر حساب کاربری ساخته اید میتوانید وارد اکانت خود شوید و به اطلاعات خود دسترسی داشته باشید </p>
+                <button class="switch__button button switch-btn">ورود</button>
+            </div>
+            <div class="switch__container is-hidden" id="switch-c2">
+                <h2 class="switch__title title">ساخت حساب کاربری</h2>
+                <p class="switch__description description">اگر حساب کاربری ندارید و میخواید وارد سایت بشید حساب کاربری بسازید </p>
+                <button class="switch__button button switch-btn">ثبت نام </button>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/Main/Account/Management.js?v=1"></script>
+    @Html.Partial("_ValidationScriptsPartial")
+    <script>
+        function validateFormRegister() {
+            // اعتبارسنجی خالی بودن هر یک از فیلدها
+            var inputs = document.getElementById("a-form").getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type !== "submit" && inputs[i].type !== "hidden" && inputs[i].value.trim() === "") {
+
+                    var errorMessageSpan = document.getElementById("Error-Register-Message");
+                    errorMessageSpan.innerHTML = "لطفاً تمام فیلدها را پر کنید";
+
+                    // افزودن کلاس با رنگ قرمز به span
+                    errorMessageSpan.classList.add("text-danger");
+
+                    return false;
+                }
+            }
+            return true;
+        }
+        function validateFormLogin() {
+            // اعتبارسنجی خالی بودن هر یک از فیلدها
+            var inputs = document.getElementById("b-form").getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type !== "submit" && inputs[i].type !== "hidden" && inputs[i].value.trim() === "") {
+
+                    var errorMessageSpan = document.getElementById("Error-Login-Message");
+                    errorMessageSpan.innerHTML = "لطفاً تمام فیلدها را پر کنید";
+
+                    // افزودن کلاس با رنگ قرمز به span
+                    errorMessageSpan.classList.add("text-danger");
+
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

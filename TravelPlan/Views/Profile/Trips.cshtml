@@ -1,0 +1,216 @@
+﻿@using TravelPlan.Common
+@using TravelPlan.Models.Dto.Area.City;
+@using TravelPlan.Models.Dto.Area.Country;
+@using TravelPlan.Models.Dto.Area.Trip;
+@using TravelPlan.Models.Entities;
+@model List<TripListDto>
+@{
+    ViewData["Title"] = "لیست جاذبه";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Colors = new string[]
+                                                                                {
+                "warning","primary","info","success","danger","dark"
+                                                                                };
+    var Countries = ViewBag.ListCountry as List<CountryListDto>;
+    var Cities = ViewBag.ListCity as List<CityListDto>;
+}
+<!-- Page container-->
+<div class="container mt-5 mb-md-4 py-5">
+    <!-- Breadcrumbs-->
+    <!-- Account header-->
+    <div class="d-flex align-items-center justify-content-between pb-4 mb-2">
+        <div class="d-flex align-items-center">
+            @*                 <div class="position-relative flex-shrink-0">
+            <img class="rounded-circle border border-white" src="@Model.Item1.PicAddress" width="100" alt="@Model.Item1.PicAlt" title="@Model.Item1.PicTitle">
+            </div>
+            <div class="ps-3 ps-sm-4">
+            <h3 class="h4 font-vazir mb-2">@Model.Item1.FullName</h3>
+            </div> *@
+        </div><a class="nav-link p-0 d-none d-md-block" href="/Account/Logout"><i class="fi-logout mt-n1 me-2"></i>خروج</a>
+    </div>
+
+    <!-- Page content-->
+    <div class="card card-body p-4 p-md-5 shadow-sm">
+        <!-- Account nav-->
+        <div class="mt-md-n3 mb-4">
+            <a class="btn btn-outline-primary btn-lg rounded-pill w-100 d-md-none" href="#account-nav" data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>منو اکانت</a>
+            <div class="collapse d-md-block" id="account-nav">
+                <ul class="nav nav-pills flex-column flex-md-row pt-3 pt-md-0 pb-md-4 border-bottom-md">
+                    <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link" href="/ProFile/Index" aria-current="page"><i class="fi-user mt-n1 me-2 fs-base"></i>اطلاعات فردی</a></li>
+                    <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="/Profile/Trips"><i class="fi-heart mt-n1 me-2 fs-base"></i>جاذبه های من</a></li>
+                    <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link" href="/Profile/Restaurants"><i class="fi-star mt-n1 me-2 fs-base"></i>رستوران های من</a></li>
+                    <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link" href="/Profile/Hotels"><i class="fi-bell mt-n1 me-2 fs-base"></i>هتل های من</a></li>
+                    <li class="nav-item d-md-none"><a class="nav-link" href="#"><i class="fi-logout mt-n1 me-2 fs-base"></i>خروج</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex flex-md-row flex-column align-items-md-center justify-content-md-between mb-4 pt-2">
+            <h1 class="h4 mb-0">لیست جاذبه ها</h1>
+        </div>
+
+        <br>
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-sm btn-light">
+                        <a href="/Profile/Trip/Create" style="font-size:15px">افزودن جاذبه جدید</a>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-rounded table-striped table-hover gy-7 gs-7" id="DatatableList">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    نام سفر
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    کشور
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    شهر
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    نوع سفر
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    نمایش در صفحه اصلی
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    تصویر
+                                </th>
+                                <th style="vertical-align: middle;text-align: center;">
+                                    وضیعیت
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string NameCountry = Countries.Where(x => x.Id == item.CountryId).Select(x => x.Name).FirstOrDefault();
+                                string NameCity = Cities.Where(x => x.Id == item.CityId).Select(x => x.Name).FirstOrDefault();
+                                <tr>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @NameCountry
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @NameCity
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @switch (item.TripDuration)
+                                        {
+                                            case TravelPlan.Models.Entities.TripDuration.Daily:
+                                                <span>روزانه</span>
+                                                break;
+                                            case TravelPlan.Models.Entities.TripDuration.OneToThreeDays:
+                                                <span>1 تا 3 روز</span>
+                                                break;
+                                            case TravelPlan.Models.Entities.TripDuration.Weekly:
+                                                <span>هفتگی</span>
+                                                break;
+                                            case TravelPlan.Models.Entities.TripDuration.MoreThanAWeek:
+                                                <span>بیشتر از یک هفته</span>
+                                                break;
+                                            default:
+                                                // code block
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        <input asp-for="@item.IsSelected" class="form-check-input " type="checkbox" disabled style="border-color:gray;" />
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;width:20%">
+                                        @if (item.IndexImage != null)
+                                        {
+                                            <div class="symbol symbol-50px">
+                                                <img src=~/@item.IndexImage alt="@item.ImageAlt" title="@item.ImageTitle"
+                                                     style="width: 70px;height: 70px;border-radius: 15px;" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            string fName = item.Name.Substring(0, 1);
+                                            var Color = (CalculateSumOfLetters.CalculateAsciiSum(item.Name) % 6);
+                                            <div class="symbol symbol-50px" style="display: flex;justify-content: center;">
+                                                <div class="bg-@Colors[Color] text-inverse-@Colors[Color]" style="width: 70px;height: 70px;border-radius: 15px;display: flex;align-items: center;justify-content: center;">
+                                                    @fName
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @switch (item.TripStatus.Value.ToString())
+                                        {
+                                            case "Publish":
+                                                <span>انتشار</span>
+                                                break;
+                                            case "WaitingForConfirm":
+                                                <span>در انتظار تایید</span>
+                                                break;
+                                            case "RejectedByAdmin":
+                                                <span>رد شده توسط ادمین</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="vertical-align: middle;text-align: center;">
+                                        @if (item.TripStatus == TripStatus.Publish)
+                                        {
+                                            <a href="/Trip/Edit/@item.Id" class="text-success mb-1 py-4" style="justify-content: center;">ویرایش</a>
+                                            <a href="/Trip/Details/@item.Id" class=text-info mb-1 py-4" style="justify-content: center;">جزییات</a>
+                                            <a href="/Trip/Delete/@item.Id" class="text-danger py-4" style="justify-content: center;">حذف</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Trip/Details/@item.Id" class=text-info mb-1 py-4" style="justify-content: center;">جزییات</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <ul class="pagination">
+                    <li class="page-item previous disabled"><a href="#" class="page-link"><i class="previous"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item "><a href="#" class="page-link">2</a></li>
+                    <li class="page-item "><a href="#" class="page-link">3</a></li>
+                    <li class="page-item "><a href="#" class="page-link">4</a></li>
+                    <li class="page-item "><a href="#" class="page-link">5</a></li>
+                    <li class="page-item "><a href="#" class="page-link">6</a></li>
+                    <li class="page-item next"><a href="#" class="page-link"><i class="next"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        //let DatatableList;
+
+
+        //      $(document).ready(function () {
+        //          DatatableList = $("#DatatableList").DataTable({
+        //              order: [[0, 'asc']],
+        //              scrollX: true,
+        //              //language: { url: location.origin + '/Media/datatables.json' },
+        //              columnDefs: [{ targets: [0], type: "num" }]
+        //          });
+        //      });
+
+        //      $("input[data-kt-filter='search']").on("input", function (e) {
+        //          DatatableList.search(e.target.value).draw();
+        //      });
+    </script>
+        }
+@section Css{
+    <link href="~/css/Area/Users/Index.css" rel="stylesheet" type="text/css" />
+        }

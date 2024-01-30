@@ -1,0 +1,77 @@
+﻿@model TravelPlan.Models.Dto.Area.Users.UserDetailsDto
+
+@{
+    ViewData["Title"] = "جزییات کاربر";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br>
+
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">جزییات کاربر (@Model.FullName)</h3>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group pb-4">
+                    <label asp-for="FullName" class="control-label pb-1" style="font-size:16px">نام</label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                    <label asp-for="PhoneNumber" class="control-label pb-1" style="font-size:16px">تلفن همراه</label>
+                    <input asp-for="PhoneNumber" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                    <label asp-for="Email" class="control-label pb-1" style="font-size:16px">ایمیل</label>
+                    <input asp-for="Email" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group pb-3">
+                    <label asp-for="EmailConfirmed" class="control-label pb-1" style="font-size:16px">تایید ایمیل</label>
+                    <p style="padding:8px 13px 8px 13px">@Model.EmailConfirmed</p>
+                </div>
+                <div class="form-group pb-3">
+                    <label asp-for="TwoFactorEnabled" class="control-label pb-1" style="font-size:16px">تایید دو مرحله ای</label>
+                    <p style="padding:8px 13px 8px 13px">@Model.TwoFactorEnabled</p>
+                </div>
+                <div class="form-group pb-3">
+                    <label asp-for="UserName" class="control-label pb-1" style="font-size:16px">نام کاربری</label>
+                    <input asp-for="UserName" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-3">
+                    <label asp-for="AccessFailedCount" class="control-label pb-1" style="font-size:16px">تعداد ورود ناموفق</label>
+                    <input asp-for="AccessFailedCount" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group pb-4">
+                    <label asp-for="DateRegister" class="control-label pb-1" style="font-size:16px">تاریخ ثبت نام</label>
+                    <input asp-for="DateRegister" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                    <label asp-for="LastLoginDate" class="control-label pb-1" style="font-size:16px">تاریخ آخرین ورود</label>
+                    <input asp-for="LastLoginDate" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                    <label asp-for="DateRegisterPresian" class="control-label pb-1" style="font-size:16px">تاریخ ثبت نام(فارسی)</label>
+                    <input asp-for="DateRegisterPresian" class="form-control" readonly />
+                </div>
+                <div class="form-group pb-4">
+                    <label asp-for="LastLoginDatePersian" class="control-label pb-1" style="font-size:16px">تاریخ آخرین ورود(فارسی)</label>
+                    <input asp-for="LastLoginDatePersian" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <a href="/admin/users/index" style="font-size:18px">بازگشت به لیست</a>
+    </div>
+</div>
+
+
